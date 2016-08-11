@@ -31,7 +31,14 @@ class PostCreateProjectCommand extends Command
     private function filterDirectories($directory)
     {
         $iterator = new RecursiveDirectoryIterator($directory);
-        foreach (new RecursiveIteratorIterator($iterator) as $file) {
+        $recursiveIterator = new RecursiveCallbackFilterIterator($iterator, function (SplFileInfo $current, $key, $iterator) {
+            if (in_array($current->getFilename(), ['.git', 'vendor'])) {
+                return false;
+            }
+            $iterator->hasChildren();
+            return true;
+        });
+        foreach (new RecursiveIteratorIterator($recursiveIterator) as $file) {
             if ($file->isFile()) {
                 yield $file;
             }
