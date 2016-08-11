@@ -18,7 +18,8 @@
   },
   "autoload": {
     "psr-4": {
-      "{{project_namespace_escaped}}\\": "src/"
+      "{{project_namespace_escaped}}\\": "src/",
+      "Skel\\": "skel/"
     }
   },
   "license": "proprietary",
@@ -36,7 +37,8 @@
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
     ],
     "post-create-project-cmd": [
-        "post_create_project.php"
+      "Skel\\ScriptHandler::postCreateProject",
+      "@composer install"
     ]
   },
   "extra": {
