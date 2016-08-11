@@ -34,6 +34,9 @@
     ],
     "post-update-cmd": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+    ],
+    "post-create-project-cmd": [
+        "post_create_project.php"
     ]
   },
   "extra": {
