@@ -1,0 +1,51 @@
+inherit: true
+
+tools:
+    external_code_coverage: false
+    php_code_coverage:      false
+    php_code_sniffer:
+        config: { standard: 'PSR2' }
+    php_changetracking: false
+    php_sim: false
+    php_cs_fixer: true
+    php_mess_detector: true
+    php_pdepend: true
+    php_analyzer: true
+    sensiolabs_security_checker: true
+
+checks:
+    php:
+        code_rating: true
+        duplication: true
+        unused_methods: true
+        uppercase_constants: true
+        use_self_instead_of_fqcn: true
+
+filter:
+    paths:
+        - 'src/*'
+    excluded_paths:
+        - 'vendor/*'
+
+build:
+    environment:
+        php:
+            version: 7.0.8
+
+    dependencies:
+        before:
+            - test -f bin/composer.phar || ( wget https://getcomposer.org/composer.phar -O bin/composer.phar && chmod +x bin/composer.phar )
+            - bin/composer.phar selfupdate
+
+        override:
+            - { command: 'bin/composer.phar install --prefer-dist --no-interaction -vvv', idle_timeout: 600 }
+
+    tests:
+        override:
+            - 'bin/composer.phar test'
+
+    cache:
+        directories: [ bin/ ]
+
+build_failure_conditions:
+    - 'issues.new.exists'

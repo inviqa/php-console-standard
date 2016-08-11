@@ -1,0 +1,44 @@
+{
+  "name": "inviqa/serveup-jumpcloud",
+  "type": "project",
+  "require": {
+    "symfony/console": "^3.1",
+    "symfony/dependency-injection": "^3.1",
+    "symfony/config": "^3.1",
+    "symfony/yaml": "^3.1",
+    "incenteev/composer-parameter-handler": "^2.1"
+  },
+  "require-dev": {
+    "behat/behat": "^3.1",
+    "phpspec/phpspec": "^3.0",
+    "friendsofphp/php-cs-fixer": "^1.11"
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "autoload": {
+    "psr-4": {
+      "{{project_namespace_escaped}}\\": "src/"
+    }
+  },
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Andy Thompson",
+      "email": "athompson@inviqa.com"
+    }
+  ],
+  "scripts": {
+    "post-install-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+    ],
+    "post-update-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+    ]
+  },
+  "extra": {
+    "incenteev-parameters": {
+      "file": "config/parameters.yml"
+    }
+  }
+}

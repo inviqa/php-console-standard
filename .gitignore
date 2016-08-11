@@ -1,0 +1,5 @@
+/bin
+/vendor
+/config/parameters.yml
+
+!/bin/{{project_bin}}
