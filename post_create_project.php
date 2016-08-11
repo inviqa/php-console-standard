@@ -55,6 +55,7 @@ class PostCreateProjectCommand extends Command
         $default = ucfirst($data['project_organisation'] . '\\' . ucfirst($data['project_name']));
         $data['project_namespace'] = $questionHelper->ask($input, $output, new PrettyQuestion('What is the project\'s namespace?', $default));
         $data['project_bin'] = $questionHelper->ask($input, $output, new PrettyQuestion('What is the project\'s binary?', strtolower($data['project_name'])));
+        $data['project_namespace_escaped'] = str_replace('\\', '\\\\', $data['project_namespace']);
 
         $replacePatterns = [];
         foreach ($data as $key => $value) {
