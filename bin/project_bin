@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+
+use {{project_namespace}}\DependencyInjection\ContainerSetUp;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+ContainerSetUp::bootstrapContainer()->get('app')->run();

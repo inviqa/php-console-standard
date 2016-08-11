@@ -58,6 +58,9 @@ class PostCreateProjectCommand extends Command
             $filename = $file->getPathName();
             $content = file_get_contents($filename);
             $content = str_replace(array_keys($replacePatterns), array_values($replacePatterns), $content);
+            if ($file->getFilename() == '.gitignore') {
+                $content = str_replace('project_bin', $data['project_bin'], $content);
+            }
 
             file_put_contents($filename, $content);
         }
