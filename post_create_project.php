@@ -73,6 +73,7 @@ class PostCreateProjectCommand extends Command
             file_put_contents($filename, $content);
         }
         rename(__DIR__ . '/bin/project_bin', __DIR__ . '/bin/' . $data['project_bin']);
+        unlink(__FILE__);
     }
 }
 
@@ -80,5 +81,3 @@ $app = new Application();
 $app->add(new PostCreateProjectCommand());
 $app->setDefaultCommand('default');
 $app->run();
-
-unlink(__FILE__);
