@@ -1,5 +1,5 @@
 {
-  "name": "inviqa/serveup-jumpcloud",
+  "name": "inviqa/php-console-standard",
   "type": "project",
   "require": {
     "symfony/console": "^3.1",

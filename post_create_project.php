@@ -9,6 +9,18 @@ use Symfony\Component\Console\Question\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+class PrettyQuestion extends Question
+{
+    public function getQuestion()
+    {
+        if ($this->getDefault()) {
+            return parent::getQuestion() . ' [' . $this->getDefault() . ']: ';
+        } else {
+            return parent::getQuestion() . ': ';
+        }
+    }
+}
+
 class PostCreateProjectCommand extends Command
 {
     protected function configure()
@@ -31,11 +43,11 @@ class PostCreateProjectCommand extends Command
         /* @var $questionHelper QuestionHelper */
         $questionHelper = $this->getHelper('question');
 
-        $data['project_organisation'] = $questionHelper->ask($input, $output, new Question('What is the project\'s organisation?'));
-        $data['project_name'] = $questionHelper->ask($input, $output, new Question('What is the project\'s name?'));
+        $data['project_organisation'] = $questionHelper->ask($input, $output, new PrettyQuestion('What is the project\'s organisation?'));
+        $data['project_name'] = $questionHelper->ask($input, $output, new PrettyQuestion('What is the project\'s name?'));
         $default = ucfirst($data['project_organisation'] . '\\' . ucfirst($data['project_name']));
-        $data['project_namespace'] = $questionHelper->ask($input, $output, new Question('What is the project\'s namespace?', $default));
-        $data['project_bin'] = $questionHelper->ask($input, $output, new Question('What is the project\'s binary?', strtolower($data['project_name'])));
+        $data['project_namespace'] = $questionHelper->ask($input, $output, new PrettyQuestion('What is the project\'s namespace?', $default));
+        $data['project_bin'] = $questionHelper->ask($input, $output, new PrettyQuestion('What is the project\'s binary?', strtolower($data['project_name'])));
 
         $replacePatterns = [];
         foreach ($data as $key => $value) {
