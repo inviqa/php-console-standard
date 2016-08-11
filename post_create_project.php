@@ -45,6 +45,16 @@ class PostCreateProjectCommand extends Command
         }
     }
 
+    private function formatCamelCase($name)
+    {
+        return str_replace(' ', '', ucwords(str_replace(['-','_'], ' ', $name)));
+    }
+
+    private function formatNamespace($organisation, $name)
+    {
+        return $this->formatCamelCase($organisation) . '\\' . $this->formatCamelCase($name);
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /* @var $questionHelper QuestionHelper */
@@ -52,7 +62,7 @@ class PostCreateProjectCommand extends Command
 
         $data['project_organisation'] = $questionHelper->ask($input, $output, new PrettyQuestion('What is the project\'s organisation?'));
         $data['project_name'] = $questionHelper->ask($input, $output, new PrettyQuestion('What is the project\'s name?'));
-        $default = ucfirst($data['project_organisation'] . '\\' . ucfirst($data['project_name']));
+        $default = $this->formatNamespace($data['project_organisation'], $data['project_name']);
         $data['project_namespace'] = $questionHelper->ask($input, $output, new PrettyQuestion('What is the project\'s namespace?', $default));
         $data['project_bin'] = $questionHelper->ask($input, $output, new PrettyQuestion('What is the project\'s binary?', strtolower($data['project_name'])));
         $data['project_namespace_escaped'] = str_replace('\\', '\\\\', $data['project_namespace']);
