@@ -1,4 +1,4 @@
-{{project_organisation}}/{{project_name}}
+{{package_name}}
 ========================
 
 Usage:
