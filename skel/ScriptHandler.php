@@ -53,8 +53,9 @@ class ScriptHandler
         return $this->formatCamelCase($organisation) . '\\' . $this->formatCamelCase($name);
     }
 
-    public function run()
+    protected function askQuestions()
     {
+        $data = [];
         $data['project_organisation'] = $this->ask('What is the project\'s organisation?');
         $data['project_name'] = $this->ask('What is the project\'s name?');
         $default = $this->formatNamespace($data['project_organisation'], $data['project_name']);
@@ -62,6 +63,11 @@ class ScriptHandler
         $data['project_bin'] = $this->ask('What is the project\'s binary?', strtolower($data['project_name']));
         $data['project_namespace_escaped'] = str_replace('\\', '\\\\', $data['project_namespace']);
 
+        return $data;
+    }
+
+    protected function convertTemplates($data)
+    {
         $replacePatterns = [];
         foreach ($data as $key => $value) {
             $replacePatterns['{{'.$key.'}}'] = $value;
@@ -78,8 +84,20 @@ class ScriptHandler
             file_put_contents($filename, $content);
         }
         rename(__DIR__ . '/../bin/project_bin', __DIR__ . '/../bin/' . $data['project_bin']);
+    }
+
+    protected function cleanupSkeleton()
+    {
         unlink(__FILE__);
         rmdir(__DIR__);
+    }
+
+    public function run()
+    {
+        $data = $this->askQuestions();
+
+        $this->convertTemplates($data);
+        $this->cleanupSkeleton();
     }
 
     public static function postCreateProject(Event $event)
