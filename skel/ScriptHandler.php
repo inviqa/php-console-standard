@@ -2,7 +2,9 @@
 namespace Skel;
 
 use Composer\Script\Event;
-use Composer\IO\IOInterface;
+use Composer\Util\ProcessExecutor;
+use Symfony\Component\Process\PhpExecutableFinder;
+
 
 class ScriptHandler
 {
@@ -10,10 +12,16 @@ class ScriptHandler
      * @param Event $event
      */
     private $event;
+    
+    /**
+     * @var ProcessExecutor $process
+     */
+    private $process;
 
-    public function __construct(Event $event)
+    public function __construct(Event $event, ProcessExecutor $process = null)
     {
         $this->event = $event;
+        $this->process = $process ?: new ProcessExecutor($event->getIO());
     }
 
     private function ask($question, $default = null)
@@ -53,6 +61,21 @@ class ScriptHandler
         return $this->formatCamelCase($organisation) . '\\' . $this->formatCamelCase($name);
     }
 
+    protected function runComposerCommand($args)
+    {
+        $finder = new PhpExecutableFinder();
+        $phpPath = $finder->find();
+        if (!$phpPath) {
+            throw new \RuntimeException('Failed to locate PHP binary to execute '.implode(' ', $args));
+        }
+        $command = array_merge([$phpPath, realpath($_SERVER['argv'][0])], $args);
+        $exec = implode(' ', array_map('escapeshellarg', $command));
+        if (0 !== ($exitCode = $this->process->execute($exec))) {
+            $this->io->writeError(sprintf('<error>Script %s returned with error code '.$exitCode.'</error>', $exec));
+            throw new ScriptExecutionException('Error Output: '.$this->process->getErrorOutput(), $exitCode);
+        }
+    }
+
     protected function askQuestions()
     {
         $data = [];
@@ -88,6 +111,7 @@ class ScriptHandler
 
     protected function cleanupSkeleton()
     {
+        $this->runComposerCommand(['install']);
         unlink(__FILE__);
         rmdir(__DIR__);
     }
