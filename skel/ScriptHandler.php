@@ -173,6 +173,7 @@ class ScriptHandler
 
         unset($config['autoload']['psr-4']['Skel\\']);
         unset($config['scripts']['post-create-project-cmd']);
+        unset($config['authors']);
 
         $config['name'] = $data['package_name'];
         if ($data['package_description']) {
