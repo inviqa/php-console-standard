@@ -107,7 +107,7 @@ class ScriptHandler
 
             file_put_contents($filename, $content);
         }
-        rename(__DIR__ . '/../bin/project_bin', __DIR__ . '/../bin/' . $data['project_bin']);
+        rename('bin/project_bin', 'bin/' . $data['project_bin']);
     }
 
     protected function updateJson(array $data)
