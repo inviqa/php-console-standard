@@ -3,6 +3,7 @@ namespace Skel;
 
 use Composer\Script\Event;
 use Composer\Util\ProcessExecutor;
+use Composer\Json\JsonFile;
 use Symfony\Component\Process\PhpExecutableFinder;
 
 
@@ -61,7 +62,7 @@ class ScriptHandler
         return $this->formatCamelCase($organisation) . '\\' . $this->formatCamelCase($name);
     }
 
-    protected function runComposerCommand($args)
+    protected function runComposerCommand(array $args)
     {
         $finder = new PhpExecutableFinder();
         $phpPath = $finder->find();
@@ -89,7 +90,7 @@ class ScriptHandler
         return $data;
     }
 
-    protected function convertTemplates($data)
+    protected function convertTemplates(array $data)
     {
         $replacePatterns = [];
         foreach ($data as $key => $value) {
@@ -109,9 +110,22 @@ class ScriptHandler
         rename(__DIR__ . '/../bin/project_bin', __DIR__ . '/../bin/' . $data['project_bin']);
     }
 
+    protected function updateJson(array $data)
+    {
+        $file = new JsonFile('composer.json');
+        $config = $file->read();
+
+        $config['name'] = $data['project_organisation'] . '/' . $data['project_name'];
+        $config['autoload']['psr-4'][$data['project_namespace'] . "\\"] = 'src/';
+        unset($config['autoload']['psr-4']['Skel\\']);
+        unset($config['scripts']['post-create-project-cmd']);
+
+        $file->write($config);
+    }
+
     protected function cleanupSkeleton()
     {
-        $this->runComposerCommand(['install']);
+        $this->runComposerCommand(['update']);
         unlink(__FILE__);
         rmdir(__DIR__);
     }
@@ -121,6 +135,7 @@ class ScriptHandler
         $data = $this->askQuestions();
 
         $this->convertTemplates($data);
+        $this->updateJson($data);
         $this->cleanupSkeleton();
     }
 
