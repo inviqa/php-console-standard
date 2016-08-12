@@ -62,7 +62,7 @@ class ScriptHandler
         return $this->formatCamelCase($organisation) . '\\' . $this->formatCamelCase($name);
     }
 
-    protected function runComposerCommand(array $args)
+    protected function runComposerCommand(...$args)
     {
         $finder = new PhpExecutableFinder();
         $phpPath = $finder->find();
@@ -127,7 +127,7 @@ class ScriptHandler
 
     protected function cleanupSkeleton()
     {
-        $this->runComposerCommand(['update']);
+        $this->runComposerCommand('update');
         unlink(__FILE__);
         rmdir(__DIR__);
     }
