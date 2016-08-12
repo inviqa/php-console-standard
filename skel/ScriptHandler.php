@@ -112,21 +112,6 @@ class ScriptHandler
         return strtolower($name);
     }
 
-    protected function runComposerCommand(...$args)
-    {
-        $finder = new PhpExecutableFinder();
-        $phpPath = $finder->find();
-        if (!$phpPath) {
-            throw new \RuntimeException('Failed to locate PHP binary to execute '.implode(' ', $args));
-        }
-        $command = array_merge([$phpPath, realpath($_SERVER['argv'][0])], $args);
-        $exec = implode(' ', array_map('escapeshellarg', $command));
-        if (0 !== ($exitCode = $this->process->execute($exec))) {
-            $this->io->writeError(sprintf('<error>Script %s returned with error code '.$exitCode.'</error>', $exec));
-            throw new ScriptExecutionException('Error Output: '.$this->process->getErrorOutput(), $exitCode);
-        }
-    }
-
     protected function askQuestions()
     {
         $data = [];
@@ -193,7 +178,6 @@ class ScriptHandler
 
     protected function cleanupSkeleton()
     {
-        $this->runComposerCommand('update');
         unlink(__FILE__);
         rmdir(__DIR__);
     }

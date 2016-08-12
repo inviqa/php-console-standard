@@ -38,7 +38,8 @@
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
     ],
     "post-create-project-cmd": [
-      "Skel\\ScriptHandler::postCreateProject"
+      "Skel\\ScriptHandler::postCreateProject",
+      "@composer update"
     ]
   },
   "extra": {
