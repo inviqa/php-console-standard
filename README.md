@@ -8,7 +8,7 @@ Usage
 -----
 
 ```bash
-composer create-project php-console-standard my-cli-tool
+composer create-project inviqa/php-console-standard my-cli-tool
 ```
 
 What's inside?
