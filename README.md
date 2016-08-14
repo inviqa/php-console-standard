@@ -4,6 +4,13 @@ PHP Console Standard Edition
 Welcome to the PHP Console Standard Edition - a fully-functional Symfony
 console application that you can use as the skeleton for your new applications.
 
+Usage
+-----
+
+```bash
+composer create-project php-console-standard my-cli-tool
+```
+
 What's inside?
 --------------
 
