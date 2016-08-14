@@ -65,12 +65,7 @@ class ScriptHandler
 
     private function formatDefaultNamespace($package)
     {
-        return implode('\\', array_map(
-            function ($name) {
-                return str_replace(' ', '', ucwords(str_replace(['-','_'], ' ', $name)));
-            },
-            explode('/', $package)
-        ));
+        return str_replace(['/','-','_'], ['\\',''], ucwords($package, '/-_'));
     }
 
     private function getGitConfig()
