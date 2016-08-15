@@ -173,6 +173,7 @@ class ScriptHandler
 
     protected function cleanupSkeleton()
     {
+        unlink('CHANGELOG.md');
         unlink(__FILE__);
         rmdir(__DIR__);
     }
