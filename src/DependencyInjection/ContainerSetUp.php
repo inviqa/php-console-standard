@@ -14,7 +14,7 @@ class ContainerSetUp
     public static function bootstrapContainer(array $additionalConfig = [])
     {
         $container = new ContainerBuilder();
-        $container->addCompilerPass(new CommandPass());
+        $container->addCompilerPass(new CommandPass('{{project_name}}.console'));
         $fileLocator = new FileLocator(__DIR__.'/../../config');
 
         $loader = new DelegatingLoader(new LoaderResolver(

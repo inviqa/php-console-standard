@@ -9,19 +9,32 @@ use Symfony\Component\DependencyInjection\Reference;
 class CommandPass implements CompilerPassInterface
 {
     /**
+     * @var string
+     */
+    private $consoleAppId;
+
+    /**
+     * @param string $consoleName
+     */
+    public function __construct($consoleAppId)
+    {
+        $this->consoleAppId = $consoleAppId;
+    }
+
+    /**
      * Add console commands to the application.
      *
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->hasDefinition('app')) {
+        if (false === $container->hasDefinition($this->consoleAppId)) {
             return;
         }
 
-        $appDefinition = $container->getDefinition('app');
+        $appDefinition = $container->getDefinition($this->consoleAppId);
 
-        foreach ($container->findTaggedServiceIds('console_command') as $id => $commands) {
+        foreach ($container->findTaggedServiceIds($this->consoleAppId . '.command') as $id => $commands) {
             $appDefinition->addMethodCall('add', [new Reference($id)]);
 
             $this->addConfigurators($container, $commands, $id);
