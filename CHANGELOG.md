@@ -1,3 +1,9 @@
+## 0.3.0 (24 August 2016)
+
+FEATURES:
+
+  * Support being used as a composer dependency in the default vendor/bin
+
 ## 0.2.0 (16 August 2016)
 
 CHANGES:
