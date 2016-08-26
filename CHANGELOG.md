@@ -1,3 +1,9 @@
+## 0.3.1 (26 August 2016)
+
+BUG FIXES:
+
+  * Fix location search of autoload.php in the bin
+
 ## 0.3.0 (24 August 2016)
 
 FEATURES:

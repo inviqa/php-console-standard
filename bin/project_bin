@@ -3,9 +3,10 @@
 
 use {{project_namespace}}\DependencyInjection\ContainerSetUp;
 
-foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
-    if (file_exists($file)) {
-        require $file;
+foreach (['../../../autoload.php', '../vendor/autoload.php', 'vendor/autoload.php'] as $file) {
+    if (file_exists(__DIR__ . '/' . $file)) {
+        require __DIR__ . '/' . $file;
+        unset($file);
         break;
     }
 }
