@@ -13,15 +13,11 @@
   "require-dev": {
     "behat/behat": "^3.1",
     "phpspec/phpspec": "^3.0",
-    "friendsofphp/php-cs-fixer": "^1.11"
+    "friendsofphp/php-cs-fixer": "^1.11",
+    "inviqa/composer-seeder-plugin": "^0.1"
   },
   "config": {
     "bin-dir": "bin"
-  },
-  "autoload": {
-    "psr-4": {
-      "Skel\\": "skel/"
-    }
   },
   "license": "MIT",
   "authors": [
@@ -36,10 +32,6 @@
     ],
     "post-update-cmd": [
       "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-    ],
-    "post-create-project-cmd": [
-      "Skel\\ScriptHandler::postCreateProject",
-      "@composer update"
     ]
   },
   "extra": {
