@@ -3,12 +3,7 @@
   "description": "A standard template for a PHP console app using Symfony\\Component\\Console",
   "type": "project",
   "require": {
-    "php": ">=5.6",
-    "symfony/console": "^3.3",
-    "symfony/dependency-injection": "^3.3",
-    "symfony/config": "^3.3",
-    "symfony/yaml": "^3.3",
-    "incenteev/composer-parameter-handler": "^2.1"
+    "php": ">=5.6"
   },
   "require-dev": {
     "behat/behat": "^3.1",
@@ -25,18 +20,5 @@
       "name": "Andy Thompson",
       "email": "athompson@inviqa.com"
     }
-  ],
-  "scripts": {
-    "post-install-cmd": [
-      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-    ],
-    "post-update-cmd": [
-      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-    ]
-  },
-  "extra": {
-    "incenteev-parameters": {
-      "file": "app/config/parameters.yml"
-    }
-  }
+  ]
 }
