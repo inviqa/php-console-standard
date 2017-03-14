@@ -21,7 +21,7 @@ class ContainerSetUp
             [new YamlFileLoader($container, $fileLocator), new XmlFileLoader($container, $fileLocator)]
         ));
 
-        foreach (array_merge(['parameters.yml', 'services.xml'], $additionalConfig) as $config) {
+        foreach (array_merge(['config.yml'], $additionalConfig) as $config) {
             $loader->load($config);
         }
 
