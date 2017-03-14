@@ -1,5 +1,5 @@
 /bin/*
 /vendor
-/config/parameters.yml
+/app/config/parameters.yml
 
 !/bin/project_bin

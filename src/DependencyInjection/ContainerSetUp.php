@@ -15,7 +15,7 @@ class ContainerSetUp
     {
         $container = new ContainerBuilder();
         $container->addCompilerPass(new CommandPass('{{project_name}}.console'));
-        $fileLocator = new FileLocator(__DIR__.'/../../config');
+        $fileLocator = new FileLocator(__DIR__.'/../../app/config');
 
         $loader = new DelegatingLoader(new LoaderResolver(
             [new YamlFileLoader($container, $fileLocator), new XmlFileLoader($container, $fileLocator)]
