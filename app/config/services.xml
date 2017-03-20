@@ -5,10 +5,10 @@
 
     <services>
         <!-- Commands -->
-        <service id="command.helloworld" class="\{{project_namespace}}\Command\HelloWorldCommand">
+        <service id="command.helloworld" class="{{project_namespace}}\Command\HelloWorldCommand">
             <tag name="{{project_name}}.console.command" />
         </service>
 
-        <service id="{{project_name}}.console" class="\Symfony\Component\Console\Application" />
+        <service id="{{project_name}}.console" class="Symfony\Component\Console\Application" />
     </services>
 </container>
