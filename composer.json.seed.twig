@@ -1,0 +1,43 @@
+{% autoescape false %}
+{% set jsOpts = constant('JSON_UNESCAPED_SLASHES') b-or constant('JSON_PRETTY_PRINT') b-or constant('JSON_UNESCAPED_UNICODE') %}
+{
+  "name": {{ package_name|json_encode(jsOpts) }},
+  "description": {{ package_description|json_encode(jsOpts) }},
+  "type": "project",
+  "require": {
+    "php": ">=5.6",
+    "symfony/console": "^3.3",
+    "symfony/dependency-injection": "^3.3",
+    "symfony/config": "^3.3",
+    "symfony/yaml": "^3.3",
+    "incenteev/composer-parameter-handler": "^2.1"
+  },
+  "require-dev": {
+    "behat/behat": "^3.1",
+    "phpspec/phpspec": "^3.0",
+    "friendsofphp/php-cs-fixer": "^1.11"
+  },
+  "autoload": {
+    "psr-4": {
+      {{ (project_namespace ~ "\\") |json_encode(jsOpts) }}: "src/"
+    }
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "license": {{ package_license|json_encode(jsOpts) }},
+  "scripts": {
+    "post-install-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+    ],
+    "post-update-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+    ]
+  },
+  "extra": {
+    "incenteev-parameters": {
+      "file": "app/config/parameters.yml"
+    }
+  }
+}
+{% endautoescape %}
