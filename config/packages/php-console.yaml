@@ -1,0 +1,8 @@
+services:
+    app.console:
+      class: 'Symfony\Component\Console\Application'
+      public: true
+      calls:
+        - method: setCommandLoader
+          arguments:
+            - '@app.console.command_loader'
