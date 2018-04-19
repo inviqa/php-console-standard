@@ -1,6 +1,6 @@
 <?php
 
-namespace {{ project_namespace }}\CommandConfigurator;
+namespace App\CommandConfigurator;
 
 use Symfony\Component\Console\Command\Command;
 

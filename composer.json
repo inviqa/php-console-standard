@@ -7,9 +7,9 @@
     "inviqa/composer-seeder-plugin": "^0.1.2"
   },
   "require-dev": {
-    "behat/behat": "^3.1",
-    "phpspec/phpspec": "^3.0",
-    "friendsofphp/php-cs-fixer": "^1.11"
+    "behat/behat": "^3.4.2",
+    "phpspec/phpspec": "^4.2.3",
+    "friendsofphp/php-cs-fixer": "^2.8"
   },
   "config": {
     "bin-dir": "bin"

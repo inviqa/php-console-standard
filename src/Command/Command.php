@@ -1,8 +1,8 @@
 <?php
 
-namespace {{ project_namespace }}\Command;
+namespace App\Command;
 
-use {{ project_namespace }}\CommandConfigurator\CommandConfigurator;
+use App\CommandConfigurator\CommandConfigurator;
 
 abstract class Command extends \Symfony\Component\Console\Command\Command
 {
