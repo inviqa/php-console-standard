@@ -80,7 +80,7 @@ class CommandPass implements CompilerPassInterface
 
             $definition->addMethodCall('setName', array($commandName));
 
-            if ($aliases) {
+            if (!empty($aliases)) {
                 $definition->addMethodCall('setAliases', array($aliases));
             }
         }
