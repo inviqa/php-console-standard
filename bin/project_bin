@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+use App\Kernel;
+use Symfony\Component\Debug\Debug;
+
+require __DIR__.'/../vendor/autoload.php';
+
+$env = $_SERVER['APP_ENV'] ?? 'dev';
+$debug = (bool) ($_SERVER['APP_DEBUG'] ?? ('prod' !== $env));
+
+if ($debug) {
+    Debug::enable();
+}
+
+$kernel = new Kernel($env, $debug);
+$kernel->boot();
+$kernel->getContainer()->get('app.console')->run();

@@ -2,4 +2,4 @@
 /vendor
 /app/config/parameters.yml
 
-!/bin/project_bin.seed.twig
+!/bin/project_bin

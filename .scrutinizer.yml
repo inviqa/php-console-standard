@@ -40,10 +40,6 @@ build:
         override:
             - { command: 'bin/composer.phar install --prefer-dist --no-interaction -vvv', idle_timeout: 600 }
 
-    tests:
-        override:
-            - 'bin/composer.phar test'
-
     cache:
         directories: [ bin/ ]
 
