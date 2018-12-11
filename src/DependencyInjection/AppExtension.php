@@ -9,7 +9,7 @@ class AppExtension extends Extension implements PrependExtensionInterface
 {
     public function prepend(ContainerBuilder $container)
     {
-        (new CommandPass('app.console.command_loader', 'app.console.command'))->process($container);
+        (new CommandPass('app.console', 'app.console.command_loader', 'app.console.command'))->process($container);
     }
 
     public function load(array $configs, ContainerBuilder $container)

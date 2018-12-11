@@ -34,7 +34,7 @@ class CommandPass implements CompilerPassInterface
 
         foreach ($commandServices as $id => $tags) {
             $definition = $container->getDefinition($id);
-            $class = $container->getParameterBag()->resolveValue($definition->getClass());
+            $class = $container->getParameterBag()->resolveValue($definition->getClass()) ?: $id;
 
             $commandId = 'console.command.'.strtolower(str_replace('\\', '_', $class));
 
